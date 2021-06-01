@@ -33,36 +33,43 @@ void Display(PNODE Head)
 {
 	while(Head!=NULL)
 	{
-		printf("%d\n",Head->Data);
+		printf("|%d|\t",Head->Data);
 		Head=Head->Next;
 	}
 }
-int LastOcc(PNODE Head,int No)
+void Prime(PNODE Head)
 {
-	int iCnt=0,iCnt2=0;
+	int i=0,N=0;
 	while(Head!=NULL)
-	{
-		iCnt++;
-		if(Head->Data==No)
-		 { iCnt2=iCnt; }
-		Head=Head->Next;
-	}
-	return iCnt2;
+  {
+     for(i=2;i<Head->Data;i++)
+     {
+     	if(Head->Data%i==0)
+     	{
+     		N=2;
+     		break;
+     	}
+     }
+     if(N==0)
+     {
+     	printf("\n|%d|\t",Head->Data);
+     }
+     Head=Head->Next;		
+  }
 }
 int main()
 {
 	PNODE First=NULL;
 	int ret=0;
 
-	InsertL(&First,10);
-	InsertL(&First,20);
-	InsertL(&First,30);
-	InsertL(&First,40);
-	InsertL(&First,50);
-	InsertL(&First,30);
-	InsertL(&First,70);
+	InsertL(&First,11);
+	InsertL(&First,13);
+	InsertL(&First,7);
+	InsertL(&First,49);
+	InsertL(&First,6);
+	InsertL(&First,111);
 	Display(First);
-	ret=LastOcc(First,30);
-	printf("The Last ccurance of 30 is %d",ret);
+	Prime(First);
+	
     return 0;	
 }
