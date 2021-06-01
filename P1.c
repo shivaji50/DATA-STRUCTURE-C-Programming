@@ -8,9 +8,10 @@ struct node
 typedef struct node NODE;
 typedef struct node* PNODE;
 typedef struct node ** PPNODE;
-void InsertFirst(PPNODE Head,int No)
+void InsertL(PPNODE Head,int No)
 {
 	PNODE newn=NULL;
+	PNODE Temp=*Head;
 	newn=(PNODE)malloc(sizeof(NODE));
 	newn->Data=No;
 	newn->Next=NULL;
@@ -21,44 +22,55 @@ void InsertFirst(PPNODE Head,int No)
 	}
 	else
 	{
-		newn->Next=*Head;
-		*Head=newn;
+		while(Temp->Next!=NULL)
+		{
+			Temp=Temp->Next;
+        }
+        Temp->Next=newn;
 	}
 }
 void Display(PNODE Head)
 {
 	while(Head!=NULL)
 	{
-		printf("%d\n",Head->Data);
+		printf("|%d|\t",Head->Data);
 		Head=Head->Next;
 	}
 }
-int FirstOcc(PNODE Head,int No)
+void Perfect(PNODE Head)
 {
-	int iCnt=0;
+	int sum=0,i=0;
 	while(Head!=NULL)
 	{
-		iCnt++;
-		if(Head->Data==No)
-		 { break; }
+		sum=0;
+		for(i=1;i<Head->Data;i++)
+		{
+			if(Head->Data%i==0)
+			{
+				sum=sum+i;
+			}
+		}
+		if(Head->Data==sum)
+		{
+			printf("\n Perfect No are=|%d|\t",Head->Data);			
+		}
 		Head=Head->Next;
 	}
-	return iCnt;
+	
 }
 int main()
 {
 	PNODE First=NULL;
 	int ret=0;
 
-	InsertFirst(&First,10);
-	InsertFirst(&First,20);
-	InsertFirst(&First,30);
-	InsertFirst(&First,40);
-	InsertFirst(&First,30);
-	InsertFirst(&First,20);
-	InsertFirst(&First,10);
+	InsertL(&First,11);
+	InsertL(&First,28);
+	InsertL(&First,17);
+	InsertL(&First,41);
+	InsertL(&First,6);
+	InsertL(&First,89);
 	Display(First);
-	ret=FirstOcc(First,30);
-	printf("The First ccurance of 30 is %d",ret);
+	Perfect(First);
+	
     return 0;	
 }
